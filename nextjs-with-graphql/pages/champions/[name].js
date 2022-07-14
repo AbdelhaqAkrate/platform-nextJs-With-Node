@@ -5,7 +5,8 @@ import axios from "axios";
 import styles from '../../styles/Home.module.css'
 import { useEffect , useState } from "react";
 import Navbar from '../../components/Navbar'
-import { Grid, GridItem, Container, Flex, SimpleGrid, Box,Text } from '@chakra-ui/react'
+import { Card , Grid , Col } from "@nextui-org/react";
+import {  Flex,Text } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 
@@ -19,7 +20,7 @@ export default function Detail()
     
 
     //Use useState to get fetched data
-    const [champions , setChampions] = useState({champion : [] , spells : [] , passive : null})
+    const [champions , setChampions] = useState({champion : [] , spells : [] , skins : [] , passive : null })
   
 
     //fetch api to get data of one champion 
@@ -42,7 +43,7 @@ export default function Detail()
                             if (Object.hasOwnProperty.call(res, key)) 
                             {
                                 var element = res[key];
-                               setChampions({champion : element , spells : element.spells , passiveImg : element.passive.image.full , passive : element.passive.name, passiveDescription : element.passive.description})
+                               setChampions({champion : element , spells : element.spells , skins : element.skins , passiveImg : element.passive.image.full , passive : element.passive.name, passiveDescription : element.passive.description})
                               
                             }
                             
@@ -56,7 +57,8 @@ export default function Detail()
    const orig = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/'
    const skill = 'http://ddragon.leagueoflegends.com/cdn/11.14.1/img/spell/'
    const passive = `http://ddragon.leagueoflegends.com/cdn/11.14.1/img/passive/${champions.passiveImg}`
-
+   const splach = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${query.name}_`
+        console.log(champions.skins)
     return(
         <Flex direction="column" justify="center" align="center" border="solid black" width="100%" className={styles.background}>
             <Head>
@@ -119,8 +121,37 @@ export default function Detail()
 
                 </div>
             </div>
+                                
+            <div className={styles.gridContent}>
+                <div className={styles.skins}>
+                    <h1 className={styles.skinTitle}>Skins</h1>
+                        <Grid.Container gap={2} justify="center">
+                            {champions.skins.map(skin=>(
+                            <Grid xs={12} sm={4} key={skin.id}>
+                                <Card>
+                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
+                                    <Col color='red'>
+                                        <Text className={styles.skinName} h4 color="white">
+                                        {skin.name}
+                                        </Text>
+                                    </Col>
+                                    </Card.Header>
+                                    <Card.Image
+                                    src={`${splach+skin.num}.jpg`}
+                                    objectFit="fill"
+                                    width="100%"
+                                    height={340}
+                                    alt="skin image"
+                                    className={styles.fit}
+                                    />
+                                </Card>
+                            </Grid>
+                            ))}
 
-
+                        </Grid.Container>
+                </div>
+            </div>
+                            
 
 
 

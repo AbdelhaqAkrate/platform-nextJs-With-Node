@@ -469,6 +469,30 @@ font-size: 22px;
   margin-left: 0.5rem;
 }
 
+.skins{
+    display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  padding: 15px;
+  border: rgb(0, 0, 0) solid 2px;
+  background-color: rgba(0, 0, 0, 0.767);
+  border-radius: 15px;
+  overflow: hidden;
+}
+.fit{
+  background-position: center;
+  background-size: cover center;
+}
+.skinTitle{
+    font-family: 'Sarala', sans-serif;
+  text-align: center;
+  color: white;
+}
+.skinName{
+  text-transform: capitalize;
+  font-family: 'Sriracha', cursive;
+}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
